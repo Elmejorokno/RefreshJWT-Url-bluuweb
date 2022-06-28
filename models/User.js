@@ -48,9 +48,9 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password)
 }
 
-userSchema.methods.createJWT = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: '1d'
+userSchema.methods.createRefreshJWT = function () {
+  return jwt.sign({ userId: this._id }, process.env.REFRESH_JWT_SECRET, {
+    expiresIn: '15d'
   })
 }
 
