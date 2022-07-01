@@ -1,5 +1,16 @@
 import jwt from 'jsonwebtoken'
 
+/**
+ * Middleware that checks the JWT sent in the authorization
+ * header against the Bearer standard.
+ * Save the user id in `req.userId`.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ * If exists the jwt from the user and it's valid will
+ * return the next() function, another case will return an error.
+ */
 const checkToken = (req, res, next) => {
   const authHeader = req.headers.authorization
 

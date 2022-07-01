@@ -1,5 +1,15 @@
 import jwt from 'jsonwebtoken'
 
+/**
+ * Middleware that checks the refresh JWT saved in the `cookie.refreshToken`
+ * Save the user id in `req.userId`.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ * If exists the refresh jwt and it's valid will
+ * return the next() function, another case will return an error.
+ */
 const checkRefreshToken = (req, res, next) => {
   const cookieRefreshToken = req.cookies.refreshToken
   try {

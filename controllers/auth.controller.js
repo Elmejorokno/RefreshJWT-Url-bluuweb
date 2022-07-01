@@ -3,6 +3,14 @@ import saveCookieRefreshJWT from '../utils/saveCookieRefreshJWT.js'
 import User from '../models/User.js'
 import createJWT from '../utils/createJWT.js'
 
+/**
+ * Login the user. Check the credentials with the db.
+ * Select the credentials `email, password` from the `req.body`
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ * Refresh JWT and save in `cookie.refreshToken`.
+ */
 export const login = async (req, res) => {
   const { email, password } = matchedData(req)
 
@@ -31,6 +39,14 @@ export const login = async (req, res) => {
   }
 }
 
+/**
+ * Register a new user to the db.
+ * Select the credentials `email, password` from the `req.body`
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ * Refresh JWT and save in `cookie.refreshToken`.
+ */
 export const register = async (req, res) => {
   const { email, password } = matchedData(req)
 
@@ -50,12 +66,24 @@ export const register = async (req, res) => {
   }
 }
 
+/**
+ * Delete the `cookie.refreshToken`
+ * @param {*} req
+ * @param {*} res
+ */
 export const logout = (req, res) => {
   res.clearCookie('refreshToken')
 
   res.end()
 }
 
+/**
+ * Create a JWT for send it in the headers.
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ * A JWT with the user id.
+ */
 export const refreshToken = (req, res) => {
   const token = createJWT({ userId: req.userId })
 
