@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 
 const { Schema, model } = mongoose
 
@@ -46,12 +45,6 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password)
-}
-
-userSchema.methods.createRefreshJWT = function () {
-  return jwt.sign({ userId: this._id }, process.env.REFRESH_JWT_SECRET, {
-    expiresIn: '15d'
-  })
 }
 
 export default model('users', userSchema)

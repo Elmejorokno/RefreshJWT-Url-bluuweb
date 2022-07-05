@@ -2,6 +2,7 @@ import { matchedData } from 'express-validator'
 import saveCookieRefreshJWT from '../utils/saveCookieRefreshJWT.js'
 import User from '../models/User.js'
 import createJWT from '../utils/createJWT.js'
+import createRefreshJWT from '../utils/createRefreshJWT.js'
 
 /**
  * Login the user. Check the credentials with the db.
@@ -29,7 +30,7 @@ export const login = async (req, res) => {
       throw error
     }
 
-    const refreshToken = user.createRefreshJWT()
+    const refreshToken = createRefreshJWT({ userId: user._id })
     saveCookieRefreshJWT(refreshToken, res)
 
     return res.status(200).json({ refreshToken })
@@ -53,7 +54,7 @@ export const register = async (req, res) => {
   try {
     const user = await User.create({ email, password })
 
-    const refreshToken = user.createRefreshJWT()
+    const refreshToken = createRefreshJWT({ userId: user._id })
     saveCookieRefreshJWT(refreshToken, res)
 
     return res.status(201).json({ refreshToken })

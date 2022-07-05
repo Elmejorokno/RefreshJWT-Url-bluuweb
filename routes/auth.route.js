@@ -1,4 +1,4 @@
-import express from 'express'
+import { Router } from 'express'
 import {
   login,
   logout,
@@ -10,7 +10,7 @@ import checkToken from '../middlewares/checkToken.js'
 import { validatorLoginUser } from '../validators/loginValidator.js'
 import { validatorRegisterUser } from '../validators/registerValidator.js'
 
-const router = express.Router()
+const router = Router()
 
 router.post('/login', validatorLoginUser, login)
 router.post('/register', validatorRegisterUser, register)
