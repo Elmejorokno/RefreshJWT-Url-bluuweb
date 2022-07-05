@@ -3,6 +3,7 @@ import Url from '../models/Url.js'
 import { genShortUrl } from '../utils/genShortUrl.js'
 
 export const getAllUrls = async (req, res) => {
+  console.log('entré al get all urls.')
   try {
     const urls = await Url.find({ createdBy: req.userId }).sort({
       createdAt: -1 //descending order
