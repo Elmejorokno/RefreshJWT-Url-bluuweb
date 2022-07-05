@@ -14,11 +14,11 @@ const whiteList = [process.env.ORIGIN]
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!whiteList.includes(origin)) {
-        return callback('Origin is not allowed.')
+      if (whiteList.includes(origin)) {
+        return callback(null, origin)
       }
 
-      return callback(null, origin)
+      return callback('Origin is not allowed.')
     }
   })
 )
